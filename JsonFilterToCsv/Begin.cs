@@ -11,7 +11,7 @@ namespace JsonFilterToCsv
         readonly string pathToJsonFile = string.Empty;
         readonly List<Player> playerList = new List<Player>();
 
-        readonly List<string> playerSuperstarList = new List<string>();
+        readonly List<Player> playerSuperstarList = new List<Player>();
         readonly int maxPlayedYears = 0;
         readonly double minPlayerRating = 0.0;
         readonly string savePath = string.Empty;
@@ -26,39 +26,56 @@ namespace JsonFilterToCsv
             if (args.Length >= 2)
             {
                 maxPlayedYears = Convert.ToInt32(args[1]);
-                CalculateMaxYearsPlayed(maxPlayedYears);
+                //CalculateMaxYearsPlayed(maxPlayedYears);
             }
             else
             {
-                System.Console.WriteLine("Please provide maximum number of years the player has been in NBA.");
+                Console.WriteLine("Please provide maximum number of years the player has been in NBA.");
             }
 
             if (args.Length >= 3)
             {
-                CalculateMinRequiredRating(minPlayerRating);
+                minPlayerRating = Convert.ToInt32(args[2]);
+                //CalculateMinRequiredRating(minPlayerRating);
             }
             else
             {
-                System.Console.WriteLine("Please provide minimum required rating the player has to quailify.");
+                Console.WriteLine("Please provide minimum required rating the player has to quailify.");
             }
 
             if (args.Length >= 4)
             {
+                CalculatePlayerNeededYearAndRating(maxPlayedYears, minPlayerRating);
                 savePath = args[3];
                 ExportCSV(savePath);
             }
             else
             {
-                System.Console.WriteLine("Please provide path for the csv file to be saved.");
+                Console.WriteLine("Please provide path for the csv file to be saved.");
+            }
+        }
+
+        private void CalculatePlayerNeededYearAndRating(int maxPlayedYears, double minPlayerRating)
+        {
+            var currentYear = DateTime.Today.Year;
+            foreach (var player in playerList)
+            {
+                var yearTolerance = player.PlayerSince + maxPlayedYears;
+                if ((currentYear <= yearTolerance) && (player.Rating >= minPlayerRating))
+                {
+                    Console.WriteLine($"Player {player.Name} quialifies with {player.Rating} rating of {minPlayerRating} rating needed.");
+                    Console.WriteLine($"Player {player.Name} qualifies with {player.PlayerSince} years of max {yearTolerance - player.PlayerSince} years needed.");
+                    playerSuperstarList.Add(player);
+                }
             }
         }
 
         private void ExportCSV(string savePath)
         {
             using StreamWriter outputFile = new StreamWriter(savePath);
-            foreach (var item in playerSuperstarList)
+            foreach (var player in playerSuperstarList)
             {
-                outputFile.Write(item + ",");
+                outputFile.WriteLine(player.Name + "," + player.Rating);
             }
         }
 
@@ -66,24 +83,23 @@ namespace JsonFilterToCsv
         {
             foreach (var player in playerList)
             {
-                var ratingTolerance = player.Rating - minPlayerRating;
-                if (player.Rating >= ratingTolerance)
+                if (player.Rating >= minPlayerRating)
                 {
-                    Console.WriteLine(player.Rating);
-                    playerSuperstarList.Add(player.Name);
+                    Console.WriteLine($"Player {player.Name} quialifies with {player.Rating} rating of {minPlayerRating} rating needed.");
                 }
             }
         }
 
         private void CalculateMaxYearsPlayed(int maxPlayedYears)
         {
+            var currentYear = DateTime.Today.Year;
             foreach (var player in playerList)
             {
-                var yearTolerance = player.PlayerSince - maxPlayedYears;
-                if (player.PlayerSince >= yearTolerance)
+                var yearTolerance = player.PlayerSince + maxPlayedYears;
+                if (currentYear <= yearTolerance)
                 {
-                    Console.WriteLine(player.PlayerSince);
-                    playerSuperstarList.Add(player.Name);
+                    //playerSuperstarList.Add(player.Name);
+                    Console.WriteLine($"Player {player.Name} qualifies with {player.PlayerSince} years of max {yearTolerance - player.PlayerSince} years needed.");
                 }
             }
         }
@@ -93,17 +109,25 @@ namespace JsonFilterToCsv
             Console.WriteLine("You loaded json file:");
             Console.WriteLine(pathToJsonFile + "\n");
 
-            JsonSerializer serializer = new JsonSerializer();
-            using StreamReader sr = new StreamReader(pathToJsonFile);
-            using JsonTextReader reader = new JsonTextReader(sr);
+            try
             {
-                var jsonFile = serializer.Deserialize<Player[]>(reader);
-
-                foreach (var player in jsonFile)
+                JsonSerializer serializer = new JsonSerializer();
+                using StreamReader sr = new StreamReader(pathToJsonFile);
+                using JsonTextReader reader = new JsonTextReader(sr);
                 {
-                    playerList.Add(player);
+                    var jsonFile = serializer.Deserialize<Player[]>(reader);
+
+                    foreach (var player in jsonFile)
+                    {
+                        playerList.Add(player);
+                    }
+                    Console.WriteLine("Json Loaded succesfuly...");
                 }
-                System.Console.WriteLine("Json Loaded succesfuly...");
+            }
+            catch (FileNotFoundException e)
+            {
+                Console.WriteLine(e.Message);
+                throw;
             }
         }
     }
