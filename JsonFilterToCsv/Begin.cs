@@ -112,14 +112,15 @@ namespace JsonFilterToCsv
                 JsonSerializer serializer = new JsonSerializer();
                 using StreamReader sr = new StreamReader(pathToJsonFile);
                 using JsonTextReader reader = new JsonTextReader(sr);
-                {
-                    var jsonFile = serializer.Deserialize<Player[]>(reader);
+                var jsonFile = serializer.Deserialize<Player[]>(reader);
 
-                    foreach (var player in jsonFile)
-                    {
-                        this.playerList.Add(player);
-                    }
+                foreach (var player in jsonFile)
+                {
+                    this.playerList.Add(player);
                 }
+                reader.Close();
+                sr.Dispose();
+
                 Console.WriteLine("Json Loaded succesfuly...\n");
                 return true;
             }

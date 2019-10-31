@@ -40,7 +40,7 @@
                 "-the maximum number of years the player has played to qualify,\n" +
                 "-the player's minimum rating, and\n" +
                 "-the path for SuperStar.csv export.\n" +
-                "\nGenerating sample .json file in the app folder...");
+                "\nGenerating sample.json file in the app folder...");
 
             var playerKrasen = new Player
             {
@@ -61,11 +61,9 @@
             playerList.Add(playerTest);
 
             testJson = JsonConvert.SerializeObject(playerList);
-            using StreamWriter outputFile = new StreamWriter("example.json");
-            {
-                outputFile.WriteLine(testJson);
-                outputFile.Dispose();
-            }
+            using StreamWriter outputFile = new StreamWriter("sample.json");
+            outputFile.WriteLine(testJson);
+            outputFile.Dispose();
 
             Console.WriteLine("Press any key to exit.");
             Console.ReadKey();

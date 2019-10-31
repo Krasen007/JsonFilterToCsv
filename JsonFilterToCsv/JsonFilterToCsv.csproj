@@ -5,15 +5,15 @@
     <Nullable>enable</Nullable>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
     <Authors>Krasen Ivanov</Authors>
     <Copyright>Krasen Ivanov 2019</Copyright>
-    <Version>1.0.0.6</Version>
+    <Version>1.0.1</Version>
     <AssemblyName>JsonFilterToCsv</AssemblyName>
+    <ApplicationIcon>eye-tracking.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
   </ItemGroup>
-
+  
 </Project>
