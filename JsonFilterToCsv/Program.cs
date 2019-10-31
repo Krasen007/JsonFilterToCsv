@@ -34,21 +34,22 @@
             string testJson;
             List<Player> playerList = new List<Player>();
 
-            Console.WriteLine("No arguments provided.\n" +
-                "Please indicate the path to the .json file,\n" +
-                "the maximum number of years the player has played to qualify,\n" +
-                "the player's minimum rating, and\n" +
-                "the path for CSV export, separated with a space.\n" +
-                "Generating sample .json file in the app folder...");
+            Console.WriteLine("Not enough arguments provided.\n" +
+                "\nPlease indicate separated with a space:\n" +
+                "-the path to the .json file,\n" +
+                "-the maximum number of years the player has played to qualify,\n" +
+                "-the player's minimum rating, and\n" +
+                "-the path for SuperStar.csv export.\n" +
+                "\nGenerating sample .json file in the app folder...");
 
-            var testPlayer = new Player
+            var playerKrasen = new Player
             {
                 Name = "Krasen Ivanov",
                 PlayerSince = 2019,
                 Position = ".Net Developer",
                 Rating = 67.9
             };
-            var testPlayer2 = new Player
+            var playerTest = new Player
             {
                 Name = "Test Person",
                 PlayerSince = 2015,
@@ -56,8 +57,8 @@
                 Rating = 47.9
             };
 
-            playerList.Add(testPlayer);
-            playerList.Add(testPlayer2);
+            playerList.Add(playerKrasen);
+            playerList.Add(playerTest);
 
             testJson = JsonConvert.SerializeObject(playerList);
             using StreamWriter outputFile = new StreamWriter("example.json");

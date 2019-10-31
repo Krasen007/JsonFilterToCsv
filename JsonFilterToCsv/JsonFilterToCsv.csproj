@@ -5,9 +5,10 @@
     <Nullable>enable</Nullable>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <Authors>Krasen Ivanov</Authors>
     <Copyright>Krasen Ivanov 2019</Copyright>
-    <Version>1.0.0.5</Version>
+    <Version>1.0.0.6</Version>
     <AssemblyName>JsonFilterToCsv</AssemblyName>
   </PropertyGroup>
 

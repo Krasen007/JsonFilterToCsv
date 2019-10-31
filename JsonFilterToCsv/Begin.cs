@@ -3,13 +3,14 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace JsonFilterToCsv
 {
     public class Begin
     {
         private readonly List<Player> playerList = new List<Player>();
-        private readonly List<Player> playerSuperstarList = new List<Player>();
+        private List<Player> playerSuperstarList = new List<Player>();
         private readonly int maxPlayedYears;
         private readonly double minPlayerRating;
 
@@ -55,7 +56,8 @@ namespace JsonFilterToCsv
                         this.ExportCSV(savePath);
                     }
                 }
-            } else
+            }
+            else
             {
                 if (args.Length >= 5)
                 {
@@ -86,6 +88,8 @@ namespace JsonFilterToCsv
             }
             else
             {
+                this.playerSuperstarList = this.playerSuperstarList.OrderByDescending(r => r.Rating).ThenBy(n => n.Name).ToList();
+
                 using StreamWriter outputFile = new StreamWriter(savePath + "\\SuperStars.csv");
                 foreach (var player in this.playerSuperstarList)
                 {
