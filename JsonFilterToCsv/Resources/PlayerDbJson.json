@@ -1,0 +1,50 @@
+[
+  {
+    "Name": "Krasen Ivanov",
+    "PlayerSince": 2019,
+    "Position": ".Net Developer",
+    "Rating": 91.5
+  },
+  {
+    "Name": "Luka Doncic",
+    "PlayerSince": 2018,
+    "Position": "SG",
+    "Rating": 87.0
+  },
+  {
+    "Name": "Thomas Welsh",
+    "PlayerSince": 2018,
+    "Position": "C",
+    "Rating": 67.0
+  },
+  {
+    "Name": "Trae Young",
+    "PlayerSince": 2018,
+    "Position": "PG",
+    "Rating": 84.0
+  },
+  {
+    "Name": "Stephen Curry",
+    "PlayerSince": 2009,
+    "Position": "PG",
+    "Rating": 95.0
+  },
+  {
+    "Name": "Giannis Antetokounmpo",
+    "PlayerSince": 2012,
+    "Position": "SF",
+    "Rating": 96.0
+  },
+  {
+    "Name": "Jayson Tatum",
+    "PlayerSince": 2017,
+    "Position": "SF",
+    "Rating": 84.0
+  },
+  {
+    "Name": "LeBron James",
+    "PlayerSince": 2003,
+    "Position": "SF",
+    "Rating": 96.0
+  }
+]
